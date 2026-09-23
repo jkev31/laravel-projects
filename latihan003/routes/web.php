@@ -1,4 +1,5 @@
 <?php
+require base_path('routes/BangunDatar/web.php');
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductCtrl;
@@ -36,8 +37,7 @@ Route::get('Pembelian', [PembelianCtrl::class,'index']);
 Route::post('Pembelian/hitungDiskon', [PembelianCtrl::class,'hitungDiskon']);
 
 // Route Bangun Datar
-Route::get('BgnDtr', [BgnDtrCtrl::class,'index']);
-Route::post('BgnDtr/hitungLuasPersegi', [BgnDtrCtrl::class,'hitungLuasPersegi']);
+
 
 // Route Bangun Ruang
 Route::get('BgnRng', [BgnRngCtrl::class,'index']);
