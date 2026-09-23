@@ -9,7 +9,7 @@ class BgnDtrCtrl extends Controller
        return view('BangunDatar.menu');
     }
 
-    public function pilihMenu(Request $request) {
+    public function inputData(Request $request) {
     $pilihan = $request->pilihan;
 
     switch ($pilihan) {

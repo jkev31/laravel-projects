@@ -9,7 +9,7 @@
     <form action="/laravelpr/latihan003/hitungPersegi" method="POST">
         @csrf
         <label for="sisi">Panjang Sisi:</label>
-        <input type="number" name="sisi" placeholder="Panjang Sisi" required>
+        <input type="number" name="sisi" min="1" placeholder="Panjang Sisi" required>
         <button type="submit">Hitung</button>
     </form>
 
