@@ -14,6 +14,6 @@ class PembelianCtrl extends Controller
         $diskon = $request->diskon;
         $potongan = $harga * ($diskon / 100);
         $total = $harga - $potongan;
-        return "nama barang: " . $request->nama . " dan total harga: " . $total;
+        return "nama barang: " . $request->nama . ", diskon: " . $request->diskon . " dan total harga: " . $total;
     }
 }

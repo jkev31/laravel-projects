@@ -13,6 +13,15 @@
         <button type="submit">Hitung</button>
     </form>
 
+    <h2>Perhitungan Bangun Datar: Lingkaran</h2>
+
+    <form action="{{ url('/BgnDtr/hitungLuasLingkaran') }}" method="POST">
+        @csrf
+        <label for="radius">Panjang Radius:</label>
+        <input type="number" name="radius" placeholder="Panjang Radius" required>
+        <button type="submit">Hitung</button>
+    </form>
+
     
 </body>
 </html>

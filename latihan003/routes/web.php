@@ -38,10 +38,13 @@ Route::post('Pembelian/hitungDiskon', [PembelianCtrl::class,'hitungDiskon']);
 // Route Bangun Datar
 Route::get('BgnDtr', [BgnDtrCtrl::class,'index']);
 Route::post('BgnDtr/hitungLuasPersegi', [BgnDtrCtrl::class,'hitungLuasPersegi']);
+Route::post('BgnDtr/hitungLuasLingkaran', [BgnDtrCtrl::class,'hitungLuasLingkaran']);
 
 // Route Bangun Ruang
 Route::get('BgnRng', [BgnRngCtrl::class,'index']);
 Route::post('BgnRng/hitungVolumeKubus', [BgnRngCtrl::class,'hitungVolumeKubus']);
+Route::post('BgnRng/hitungVolumeBalok', [BgnRngCtrl::class,'hitungVolumeBalok']);
+Route::post('BgnRng/hitungVolumeTabung', [BgnRngCtrl::class,'hitungVolumeTabung']);
 
 
 
