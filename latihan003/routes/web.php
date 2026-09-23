@@ -21,15 +21,15 @@ Route::post('insertkaryawan', [KaryawanCtrl::class,'insertkaryawan']);
 
 // Route Calculator
 // Form input angka
-Route::get('/calculator', [CalculatorController::class, 'index']);
+Route::get('calculator', [CalculatorController::class, 'index']);
 // Proses penjumlahan
-Route::post('/calculator/add', [CalculatorController::class, 'add']);
+Route::post('calculator/add', [CalculatorController::class, 'add']);
 // Proses pengurangan
-Route::post('/calculator/substract', [CalculatorController::class, 'substract']);
+Route::post('calculator/substract', [CalculatorController::class, 'substract']);
 // Proses perkalian
-Route::post('/calculator/multiply', [CalculatorController::class, 'multiply']);
+Route::post('calculator/multiply', [CalculatorController::class, 'multiply']);
 // Proses pembagian
-Route::post('/calculator/divide', [CalculatorController::class, 'divide']);
+Route::post('calculator/divide', [CalculatorController::class, 'divide']);
 
 // Route Diskon
 Route::get('Pembelian', [PembelianCtrl::class,'index']);
