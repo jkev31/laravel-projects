@@ -9,5 +9,5 @@ use App\Http\Controllers\ItemController;
 
 Route::get('/items', [ItemController::class, 'index']);
 Route::post('/items', [ItemController::class, 'store']);
-Route::put('/items/{id}', [ItemController::class, 'update']);
-Route::delete('/items/{id}', [ItemController::class, 'destroy']);
+Route::put('/items', [ItemController::class, 'update']);
+Route::delete('/items', [ItemController::class, 'destroy']);
