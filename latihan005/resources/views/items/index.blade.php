@@ -176,13 +176,12 @@ $('#save1').on("click", function() {
     formdata.append('description', $("#desc1").val());
     formdata.append('price', $("#price1").val());
     formdata.append('stock', $("#stock1").val());
-    formdata.append('_method', 'PUT'); // Method spoofing Laravel untuk UPDATE
 
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
     formdata.append('_token', csrfToken); 
 
     $.ajax({
-        type: 'POST',
+        type: 'PUT',
         url: 'items',
         data: formdata,
         processData: false,
@@ -212,13 +211,12 @@ $('#delete').on("click", function() {
 
     var formdata = new FormData();
     formdata.append('id', id);
-    formdata.append('_method', 'DELETE'); // Method spoofing Laravel untuk DELETE
 
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
     formdata.append('_token', csrfToken); 
 
     $.ajax({
-        type: 'POST',
+        type: 'DELETE',
         url: 'items',
         data: formdata,
         processData: false,
