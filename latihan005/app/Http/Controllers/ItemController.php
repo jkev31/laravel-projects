@@ -18,7 +18,7 @@ class ItemController extends Controller
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'desc' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
         ]);
@@ -30,7 +30,7 @@ class ItemController extends Controller
             }
         DB::table('items')->insert([
             'name' => $request->name,
-            'description' => $request->description,
+            'desc' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
             'created_at' => now(),
@@ -41,6 +41,45 @@ class ItemController extends Controller
             'message' => 'Item berhasil ditambahkan!'
         ]);
     }
+
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'desc' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        DB::table('items')->where('id', $id)->update([
+            'name' => $request->name,
+            'desc' => $request->description,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'updated_at' => now(),
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Item berhasil diupdate!'
+        ]);
+    }
+    public function destroy($id)
+    {
+        DB::table('items')->where('id', $id)->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Item berhasil dihapus!'
+        ]);
+    }
+    
 
 
 }

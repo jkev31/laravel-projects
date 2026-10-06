@@ -27,7 +27,7 @@
     <tbody>
         @foreach ($item as $x)
             <tr>
-                <td><button class="btn btn-primary">Edit</button></td>
+                <td><button class="btn btn-primary btn-edit" id="edit" data-bs-toggle="modal" data-bs-target="#modaledit">Edit</button></td>
                 <td>{{ $x->id }}</td>
                 <td>{{ $x->name }}</td>
                 <td>{{ $x->description }}</td>
@@ -40,11 +40,11 @@
 </div>
 
 <!-- The Modal Tambah Item -->
-<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambah">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Item</h1>
+        <h1 class="modal-title fs-5" id="modaltambah">Tambah Item</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -77,34 +77,35 @@
 
 
 <!-- The Modal Edit Item -->
-<div class="modal fade" id="edit">
+<div class="modal fade" id="modaledit">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Item</h1>
+        <h1 class="modal-title">Edit Item</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="mt-3">
-            <input type="text" class="form-control" id="name" placeholder="Masukan Nama" name="nama">
+            <input type="text" class="form-control" id="name1" placeholder="Masukan Nama" name="nama">
         </div>
         <div class="mt-3">
             
-            <input type="text" class="form-control" id="desc" placeholder="Masukan Deskripsi" name="desc">
+            <input type="text" class="form-control" id="desc1" placeholder="Masukan Deskripsi" name="desc">
         </div>
         <div class="mt-3">
             
-            <input type="number" class="form-control" id="price" placeholder="Masukan Harga" name="price">
+            <input type="number" class="form-control" id="price1" placeholder="Masukan Harga" name="price">
         </div>
         <div class="mt-3">
             
-            <input type="number" class="form-control" id="stock" placeholder="Masukan Stok" name="stock">
+            <input type="number" class="form-control" id="stock1" placeholder="Masukan Stok" name="stock">
         </div>
         
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="save">Save changes</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="save1">Save changes</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="delete">Delete</button>
       </div>
     </div>
   </div>
@@ -113,8 +114,7 @@
 <script>
 
 $('#save').on("click", function() {
-    const
-     formdata = new FormData();
+    var formdata = new FormData();
     let name = $('#name').val();
     let desc = $('#desc').val();
     let price = $('#price').val();
@@ -146,6 +146,63 @@ $('#save').on("click", function() {
         }
     });
 })
+
+$('#edit').on("click",function (){
+    var formdata = new FormData();
+    formdata.append('id',$("#id1").val());
+    formdata.append('name',$("#name1").val());
+    formdata.append('description',$("#desc1").val());
+    formdata.append('price',$("#price1").val());
+    formdata.append('stock',$("#stock1").val());
+
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    formdata.append('_token',csrfToken); 
+
+     $.ajax({
+        type: 'GET',
+        url: 'items',
+        data: formdata, // Mengambil semua data form
+        processData:false,
+        contentType:false,
+        success: function(response) {
+            console.log('Sukses:', response);
+            alert('Data berhasil diupdate!');
+            location.reload();
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+})
+
+
+
+$('#delete').on("click",function(){
+    var formdata = new FormData();
+    formdata.append('id',$("#id1").val());
+
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    formdata.append('_token',csrfToken); 
+
+     $.ajax({
+        type: 'DELETE',
+        url: 'items',
+        data: formdata, // Mengambil semua data form
+        processData:false,
+        contentType:false,
+        success: function(response) {
+            console.log('Sukses:', response);
+            alert('Data berhasil dihapus!');
+            location.reload();
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+})
+
+
+
 </script>
 </body>
 </html>
