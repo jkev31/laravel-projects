@@ -3,8 +3,7 @@
 <head>
   <title>Item</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- CSRF Token Meta untuk AJAX -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
   <meta name="csrf-token" content="{{ csrf_token() }}">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -162,7 +161,7 @@ $('#save').on("click", function() {
     });
 });
 
-// 3. Update Data (PUT /items/{id})
+// Update Data
 $('#save1').on("click", function() {
     let id = $("#id1").val();
     if (!id) {
@@ -197,7 +196,7 @@ $('#save1').on("click", function() {
     });
 });
 
-// 4. Hapus Data (DELETE /items/{id})
+// Hapus Data
 $('#delete').on("click", function() {
     let id = $("#id1").val();
     if (!id) {
