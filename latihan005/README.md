@@ -84,7 +84,7 @@ Aplikasi **Point of Sale (POS) sederhana** berbasis web yang dibangun dengan Lar
 
 ### Prasyarat
 
-- PHP **^8.3**
+- PHP **^8.4**
 - Composer
 - Node.js & NPM
 - MySQL / MariaDB (atau database lain yang didukung Laravel)
@@ -192,8 +192,9 @@ latihan005/
 | Layer       | Teknologi                         |
 |-------------|-----------------------------------|
 | Framework   | Laravel 13                        |
-| Language    | PHP 8.3                           |
-| Database    | MySQL / MariaDB                   |
+| Language    | PHP 8.5                           |
+| Library     | Bootstrap + JQuery                |
+| Database    | MySQL                             |
 | Query       | Laravel Query Builder (`DB::`)    |
 | Frontend    | Blade Templates + Vite            |
 | Validation  | Laravel Validator                 |
@@ -209,6 +210,3 @@ latihan005/
 
 ---
 
-## 📄 Lisensi
-
-Proyek ini bersifat open-source dan tersedia di bawah lisensi [MIT](https://opensource.org/licenses/MIT).
