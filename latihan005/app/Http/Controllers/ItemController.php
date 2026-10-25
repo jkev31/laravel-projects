@@ -65,7 +65,7 @@ class ItemController extends Controller
         DB::table('items')->where('id', $request->id)->update([
             'name'        => $request->name,
             'description' => $request->description,
-            'price'       => $request->price * 18000,
+            'price'       => $request->price,
             'stock'       => $request->stock,
             'updated_at'  => now(),
         ]);
