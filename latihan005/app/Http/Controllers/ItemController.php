@@ -35,7 +35,7 @@ class ItemController extends Controller
         DB::table('items')->insert([
             'name'        => $request->name,
             'description' => $request->description,
-            'price'       => $request->price,
+            'price'       => $request->price * 18000,
             'stock'       => $request->stock,
             'created_at'  => now(),
             'updated_at'  => now(),
@@ -65,7 +65,7 @@ class ItemController extends Controller
         DB::table('items')->where('id', $request->id)->update([
             'name'        => $request->name,
             'description' => $request->description,
-            'price'       => $request->price,
+            'price'       => $request->price * 18000,
             'stock'       => $request->stock,
             'updated_at'  => now(),
         ]);

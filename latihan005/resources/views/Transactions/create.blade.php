@@ -33,7 +33,7 @@
                 <div class="mb-3">
                     <div class="row g-2">
                         <div class="col-md-2">
-                            <input type="text" class="form-control" id="id_item" data-bs-toggle="modal" data-bs-target="#itemModal" placeholder="Klik ID Item" readonly style="cursor: pointer;">
+                            <input type="text" class="form-control" id="id_item" data-bs-toggle="modal" data-bs-target="#itemModal" placeholder="ID Item" readonly style="cursor: pointer;">
                         </div>
                         <div class="col-md-3">
                             <input type="text" class="form-control" id="name_item" placeholder="Nama Item" readonly>
@@ -141,6 +141,8 @@ function pilihan(id, name, price) {
     $("#price_item").val(price);
     $("#qty_item").val(1);
     $("#subtotal_item").val(price);
+
+    
 }
 
 

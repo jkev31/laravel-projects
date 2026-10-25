@@ -20,7 +20,7 @@
                 <th>ID</th>
                 <th>Kode</th>
                 <th>Tanggal</th>
-                <th>Total</th>
+                <th class="text-end">Total</th>
             </tr>
         </thead>
         <tbody id="TransactionTableBody">
@@ -32,7 +32,7 @@
                 <td>{{$transaction->id}}</td>
                 <td>{{$transaction->invoice_number}}</td>
                 <td>{{$transaction->transaction_date}}</td>
-                <td>Rp {{$transaction->total_amount}}</td>
+                <td class="text-end">Rp {{number_format($transaction->total_amount, 2,',','.')}}</td> 
             </tr>
             @endforeach
         </tbody>

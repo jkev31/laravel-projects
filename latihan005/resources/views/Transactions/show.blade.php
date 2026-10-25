@@ -74,9 +74,9 @@
                             <tr>
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td>{{ $detail->item_name }}</td>
-                                <td class="text-end">Rp {{ number_format($detail->price, 0, ',', '.') }}</td>
+                                <td class="text-end">Rp {{ number_format($detail->price, 2, ',', '.') }}</td>
                                 <td class="text-center">{{ $detail->quantity }}</td>
-                                <td class="text-end">Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</td>
+                                <td class="text-end">Rp {{ number_format($detail->subtotal, 2, ',', '.') }}</td>
                             </tr>
                             @empty
                             <tr>
@@ -88,7 +88,7 @@
                         <tfoot>
                             <tr>
                                 <th colspan="4" class="text-end fw-bold fs-5">Grand Total:</th>
-                                <th class="text-end fw-bold text-primary fs-5">Rp {{ number_format($transaction->total_amount, 0, ',', '.') }}</th>
+                                <th class="text-end fw-bold text-primary fs-5">Rp {{ number_format($transaction->total_amount, 2, ',', '.') }}</th>
                             </tr>
                         </tfoot>
                     </table>
