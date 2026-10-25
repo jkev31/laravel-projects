@@ -1,58 +1,225 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
 </p>
 
-## About Laravel
+<p align="center">
+  <a href="https://laravel.com/docs/13.x"><img src="https://img.shields.io/badge/Laravel-13.x-FF2D20?style=flat-square&logo=laravel" alt="Laravel Version"></a>
+  <a href="https://www.php.net/releases/8.3"><img src="https://img.shields.io/badge/PHP-8.3-777BB4?style=flat-square&logo=php" alt="PHP Version"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License"></a>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# 🛒 Mini POS — Latihan 005
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Aplikasi **Point of Sale (POS) sederhana** berbasis web yang dibangun dengan Laravel 13. Mendukung manajemen barang (Items) dan pencatatan transaksi penjualan lengkap dengan detail item, auto-generate nomor invoice, serta pengurangan stok otomatis.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ✨ Fitur Utama
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **📦 Manajemen Barang (Items)**
+  - Tambah, edit, dan hapus barang
+  - Pencatatan nama, deskripsi, harga, dan stok
+  - CRUD via AJAX (tanpa reload halaman)
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- **🧾 Transaksi Penjualan**
+  - Buat transaksi baru dengan multiple item sekaligus
+  - Auto-generate nomor invoice format `TRX-YYYYmmddHHiiss`
+  - Kalkulasi subtotal & grand total otomatis di sisi server
+  - Pengurangan stok barang otomatis setiap transaksi
+  - Lihat detail transaksi beserta item yang dibeli
 
-## Agentic Development
+- **🔒 Database Transaction**
+  - Menggunakan `DB::beginTransaction()` / `commit()` / `rollBack()` untuk menjaga integritas data
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
+
+## 🗄️ Struktur Database
+
+### Tabel `items`
+
+| Kolom         | Tipe              | Keterangan              |
+|---------------|-------------------|-------------------------|
+| `id`          | bigint (PK)       | Primary key             |
+| `name`        | string            | Nama barang             |
+| `description` | text (nullable)   | Deskripsi barang        |
+| `price`       | decimal(12,2)     | Harga barang            |
+| `stock`       | integer           | Jumlah stok             |
+| `created_at`  | timestamp         | —                       |
+| `updated_at`  | timestamp         | —                       |
+
+### Tabel `transactions`
+
+| Kolom              | Tipe              | Keterangan                    |
+|--------------------|-------------------|-------------------------------|
+| `id`               | bigint (PK)       | Primary key                   |
+| `invoice_number`   | string (unique)   | Nomor invoice unik            |
+| `description`      | string (nullable) | Keterangan transaksi          |
+| `transaction_date` | date              | Tanggal transaksi             |
+| `total_amount`     | decimal(12,2)     | Total nilai transaksi         |
+| `created_at`       | timestamp         | —                             |
+| `updated_at`       | timestamp         | —                             |
+
+### Tabel `transaction_details`
+
+| Kolom            | Tipe          | Keterangan                          |
+|------------------|---------------|-------------------------------------|
+| `id`             | bigint (PK)   | Primary key                         |
+| `transaction_id` | foreignId     | FK → `transactions.id` (cascade)    |
+| `item_id`        | foreignId     | FK → `items.id` (cascade)           |
+| `price`          | decimal(12,2) | Harga satuan saat transaksi         |
+| `quantity`       | integer       | Jumlah barang                       |
+| `subtotal`       | decimal(12,2) | Subtotal (price × quantity)         |
+| `created_at`     | timestamp     | —                                   |
+| `updated_at`     | timestamp     | —                                   |
+
+---
+
+## 🌐 Routes
+
+| Method   | URL                        | Controller                      | Fungsi                        |
+|----------|----------------------------|---------------------------------|-------------------------------|
+| `GET`    | `/items`                   | `ItemController@index`          | Daftar semua barang           |
+| `POST`   | `/items`                   | `ItemController@store`          | Tambah barang baru            |
+| `PUT`    | `/items`                   | `ItemController@update`         | Edit data barang              |
+| `DELETE` | `/items`                   | `ItemController@destroy`        | Hapus barang                  |
+| `GET`    | `/transactions`            | `TransactionController@index`   | Daftar semua transaksi        |
+| `GET`    | `/transactions/create`     | `TransactionController@create`  | Form buat transaksi baru      |
+| `POST`   | `/transactions`            | `TransactionController@store`   | Simpan transaksi (JSON)       |
+| `GET`    | `/transactions/show/{id}`  | `TransactionController@show`    | Detail transaksi              |
+
+---
+
+## 🚀 Instalasi & Setup
+
+### Prasyarat
+
+- PHP **^8.3**
+- Composer
+- Node.js & NPM
+- MySQL / MariaDB (atau database lain yang didukung Laravel)
+- Laragon / XAMPP / Herd *(opsional, untuk local server)*
+
+### Langkah-langkah
+
+**1. Clone / salin project**
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/jkev31/laravel-projects.git
+cd laravel-projects/latihan005
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+**2. Install dependensi PHP**
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**3. Salin file environment**
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**4. Generate application key**
 
-## Security Vulnerabilities
+```bash
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**5. Konfigurasi database**
 
-## License
+Edit file `.env` dan sesuaikan pengaturan database:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=latihan005
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**6. Jalankan migrasi**
+
+```bash
+php artisan migrate
+```
+
+**7. Install dependensi frontend & build assets**
+
+```bash
+npm install
+npm run build
+```
+
+**8. Jalankan development server**
+
+```bash
+php artisan serve
+```
+
+> Atau gunakan shortcut Composer yang sudah dikonfigurasi:
+> ```bash
+> composer run dev
+> ```
+
+Aplikasi akan berjalan di **http://localhost:8000**
+
+---
+
+## 📁 Struktur Direktori Utama
+
+```
+latihan005/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── ItemController.php         # CRUD Barang
+│   │       └── TransactionController.php  # CRUD Transaksi
+│   └── Models/
+├── database/
+│   └── migrations/
+│       ├── ..._create_items_table.php
+│       ├── ..._create_transactions_table.php
+│       └── ..._create_transaction_details_table.php
+├── resources/
+│   └── views/
+│       ├── items/
+│       │   └── index.blade.php            # Halaman daftar & form barang
+│       └── Transactions/
+│           ├── index.blade.php            # Daftar transaksi
+│           ├── create.blade.php           # Form transaksi baru
+│           └── show.blade.php             # Detail transaksi
+└── routes/
+    └── web.php                            # Definisi route
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer       | Teknologi                         |
+|-------------|-----------------------------------|
+| Framework   | Laravel 13                        |
+| Language    | PHP 8.3                           |
+| Database    | MySQL / MariaDB                   |
+| Query       | Laravel Query Builder (`DB::`)    |
+| Frontend    | Blade Templates + Vite            |
+| Validation  | Laravel Validator                 |
+| API Style   | JSON Response (AJAX-friendly)     |
+
+---
+
+## 📝 Catatan Pengembangan
+
+- Proyek ini merupakan **latihan** — tidak menggunakan Eloquent Model secara penuh, melainkan **Query Builder** (`DB::table(...)`) langsung untuk memahami konsep dasar query Laravel.
+- Harga barang pada `ItemController@store` dan `@update` dikalikan `18000` (asumsi konversi kurs dari USD ke IDR pada input form).
+- Semua operasi tulis pada transaksi dibungkus dalam **database transaction** untuk menjamin konsistensi data.
+
+---
+
+## 📄 Lisensi
+
+Proyek ini bersifat open-source dan tersedia di bawah lisensi [MIT](https://opensource.org/licenses/MIT).
