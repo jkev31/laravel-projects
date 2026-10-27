@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Transaksi</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
 </head>
 
 
@@ -32,8 +32,7 @@
                 <!-- Input Pilih Item Sementara -->
                 <div class="mb-3">
                     <div class="row g-2">
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="id_item" data-bs-toggle="modal" data-bs-target="#itemModal" placeholder="ID Item" readonly style="cursor: pointer;">
+                                         <input                            <input type="text" class="form-control" id="id_item" data-bs-toggle="modal" data-bs-target="#itemModal" placeholder="Klik ID Item" readonly style="cursor: pointer;">
                         </div>
                         <div class="col-md-3">
                             <input type="text" class="form-control" id="name_item" placeholder="Nama Item" readonly>
@@ -141,8 +140,10 @@ function pilihan(id, name, price) {
     $("#price_item").val(price);
     $("#qty_item").val(1);
     $("#subtotal_item").val(price);
-
-    
+(name);
+    $("#price_item").val(price);
+    $("#qty_item").val(1);
+    $("#subtotal_item").val(price);
 }
 
 
