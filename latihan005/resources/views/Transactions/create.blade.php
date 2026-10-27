@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Transaksi</title>
-<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 </head>
 
 
@@ -23,7 +23,7 @@
                 <!-- Input Tanggal & Keterangan -->
                 <div class="mb-3">
                     <label for="tanggal" class="form-label">Tanggal:</label>
-                    <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}">
+                    <input type="text" class="form-control" id="tanggal" name="tanggal" value="{{ date('d-m-Y') }}">
                 </div>
                 <div class="mb-3">
                     <label for="keterangan" class="form-label">Keterangan:</label>
@@ -32,15 +32,14 @@
                 <!-- Input Pilih Item Sementara -->
                 <div class="mb-3">
                     <div class="row g-2">
-                                         <input                            <input type="text" class="form-control" id="id_item" data-bs-toggle="modal" data-bs-target="#itemModal" placeholder="Klik ID Item" readonly style="cursor: pointer;">
-                        </div>
+                        <input type="text" class="form-control" id="id_item" data-bs-toggle="modal" data-bs-target="#itemModal" placeholder="Klik ID Item" readonly style="cursor: pointer;">
                         <div class="col-md-3">
                             <input type="text" class="form-control" id="name_item" placeholder="Nama Item" readonly>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <input type="number" class="form-control" id="price_item" placeholder="Harga" readonly>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <input type="number" class="form-control text-end" id="qty_item" placeholder="Qty" value="1" min="1">
                         </div>
                         <div class="col-md-2">

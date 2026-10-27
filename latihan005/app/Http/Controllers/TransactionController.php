@@ -16,6 +16,25 @@ class TransactionController extends Controller {
         return view('Transactions.create',['items' => $items]);
     }
 
+    public function rekapDetail() {
+        $details = DB::table('transaction_details as D')
+            ->join('items as I', 'I.id', '=', 'D.item_id')
+            ->join('transactions as T', 'T.id', '=', 'D.transaction_id')
+            ->select(
+                'T.invoice_number',
+                'T.transaction_date',
+                'D.item_id',
+                'I.name',
+                'I.description',
+                'D.price',
+                'D.quantity',
+                'D.subtotal'
+            )
+            ->get();
+
+        return view('Transactions.rekapdetail', compact('details'));
+    }
+
 
     public function store(Request $request) {
         // 1. Validasi Input
