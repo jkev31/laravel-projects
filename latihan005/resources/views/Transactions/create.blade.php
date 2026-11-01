@@ -23,7 +23,7 @@
                 <!-- Input Tanggal & Keterangan -->
                 <div class="mb-3">
                     <label for="tanggal" class="form-label">Tanggal:</label>
-                    <input type="text" class="form-control" id="tanggal" name="tanggal" value="{{ date('d-m-Y') }}">
+                    <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}">
                 </div>
                 <div class="mb-3">
                     <label for="keterangan" class="form-label">Keterangan:</label>
@@ -32,17 +32,19 @@
                 <!-- Input Pilih Item Sementara -->
                 <div class="mb-3">
                     <div class="row g-2">
-                        <input type="text" class="form-control" id="id_item" data-bs-toggle="modal" data-bs-target="#itemModal" placeholder="Klik ID Item" readonly style="cursor: pointer;">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="id_item" data-bs-toggle="modal" data-bs-target="#itemModal" placeholder="Klik ID Item" readonly style="cursor: pointer;">
+                        </div>
+                            <div class="col-md-2">
                             <input type="text" class="form-control" id="name_item" placeholder="Nama Item" readonly>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <input type="number" class="form-control" id="price_item" placeholder="Harga" readonly>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <input type="number" class="form-control text-end" id="qty_item" placeholder="Qty" value="1" min="1">
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <input type="number" class="form-control text-end" id="subtotal_item" placeholder="Subtotal" value="0" readonly>
                         </div>
                         <div class="col-md-1">
@@ -139,10 +141,7 @@ function pilihan(id, name, price) {
     $("#price_item").val(price);
     $("#qty_item").val(1);
     $("#subtotal_item").val(price);
-(name);
-    $("#price_item").val(price);
-    $("#qty_item").val(1);
-    $("#subtotal_item").val(price);
+
 }
 
 
