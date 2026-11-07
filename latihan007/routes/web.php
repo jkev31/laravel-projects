@@ -1,0 +1,22 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\TransactionController;
+
+
+
+
+
+Route::get('/items', [ItemController::class, 'index']);
+Route::get('/items/create', [ItemController::class, 'create']);
+Route::get('/items/edit/{id}', [ItemController::class, 'edit']);
+Route::post('/items', [ItemController::class, 'store']);
+Route::put('/items', [ItemController::class, 'update']);
+Route::delete('/items', [ItemController::class, 'destroy']);
+
+Route::get('/transactions', [TransactionController::class, 'index']);
+Route::get('/transactions/create', [TransactionController::class, 'create']);
+Route::get('/transactions/show/{id}', [TransactionController::class, 'show']);
+Route::get('/transactions/detail', [TransactionController::class, 'rekapDetail']);
+Route::post('/transactions', [TransactionController::class, 'store']);
