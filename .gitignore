@@ -6,6 +6,7 @@
 .env
 .env.backup
 .env.production
+storage/app/firebase/*.json
 
 # Storage & Cache (Log, file upload, & kunci enkripsi)
 /storage/*.key
